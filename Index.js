@@ -1,28 +1,24 @@
 let countMoney = 0
-
+let click = 1
+let improvement_1Price = 100
+// Делаем примитивное прибавление +1 за клик
 function Count() {
-  if (countMoney < 1000) {
-		countMoney += 1
-		document.getElementById('Count').innerText = `Счетчик YarikOFF = ${countMoney}`
-	} 
-  else if (countMoney <= 100) {
-		document.getElementById('Count').innerText = 'Максимальный Лимит YarikOFF 1000'
+	if (countMoney < 1000) {
+		countMoney += click
+		document.getElementById('Count').innerText = `Счетчик = ${countMoney}`
+		return countMoney
 	}
-  return countMoney
 }
-
-function Turbo2x(){
-  if (countMoney < 1000 && countMoney*2 <= 1000) {
-		countMoney *= 2
-    document.getElementById('Count').innerText = `Счетчик YarikOFF = ${countMoney}`
+// Добавляем покупку скилла +1 к основному клику, с каждым улучшением цена увеличивается в 10 раз
+function increaseClickValue() {
+	if (countMoney >= improvement_1Price) {
+		click += 1
+		countMoney -= improvement_1Price
+		improvement_1Price *= 10
+		document.getElementById('Count').innerText = `Счетчик = ${countMoney}`
+		document.getElementById('improvment_1Prise_increaseClickValue').innerText = improvement_1Price
+		alert(`Бустер активирован! Теперь каждый клик добавляет ${click}.`)
+	} else {
+		alert('Недостаточно средств! Продолжай кликать...')
 	}
-  else if(countMoney <=100){
-    document.getElementById('Count').innerText = "Лимит очков 100"
-  }
-  return countMoney
-}
-
-function countclear(){
-  countMoney = 0
-  document.getElementById('Count').innerText = `Счетчик YarikOFF = ${countMoney}`
 }

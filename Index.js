@@ -22,3 +22,8 @@ function increaseClickValue() {
 		alert('Недостаточно средств! Продолжай кликать...')
 	}
 }
+// Обработка нескольких касаний
+document.querySelector('.mainСharacter').addEventListener('touchstart', function(event) {
+    event.preventDefault(); 
+    Array.from(event.touches).forEach(() => Count()); 
+});

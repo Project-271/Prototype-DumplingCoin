@@ -12,7 +12,7 @@ body {
     width: 200px;
     height: 200px;
     border: none;
-    background-image: url('/rangs/default-pelmen.png');
+    background-image: url('./rangs/default-pelmen.png');
     background-size: cover;
     background-position: center; 
     border-radius: 50%; 

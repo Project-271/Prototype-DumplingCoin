@@ -9,9 +9,9 @@
   </head>
   <body>
 
-  <button onclick="increaseClickValue()" class="improvments" >Улучшение <br>+1 за клик<br><div class="priceColor">Цена:<span id="improvment_1Prise_increaseClickValue">100</span></div></button>
+  <button  onclick="increaseClickValue()" class="improvments" >Улучшение <br>+1 за клик<br><div class="priceColor">Цена:<span id="improvment_1Prise_increaseClickValue">100</span></div></button>
 
-<button onclick="Count()" class="mainСharacter" ></button>
+<button onclick="handleClick(event); pressAndMoveButton(this); Count()" class="mainСharacter" ></button>
 <p id="Count">Счетчик = 0</p>
   </body>
   </html>

@@ -17,6 +17,7 @@ body {
     background-position: center; 
     border-radius: 50%; 
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); 
+     transition: transform 0.3s ease-out;
 }
 .improvments{
   width: 200px;
@@ -38,3 +39,39 @@ body {
     border-radius: 10px; 
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+/* Тряска */
+@keyframes pressAndMoveForward {
+      0% {
+        transform: scale(1) translateZ(0);
+      }
+      50% {
+        transform: scale(0.9) translateZ(0); 
+      }
+      100% {
+        transform: scale(1.1) translateZ(20px); 
+      }
+    }
+
+    .press-move {
+      animation: pressAndMoveForward 0.3s ease-out; 
+    }
+/* Цифры улетают за тап */
+    .floating-number {
+      position: absolute;
+      color: rgb(255, 255, 255);
+      font-size: 25px;
+      font-weight: bold;
+      animation: floatUp 1s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+    }

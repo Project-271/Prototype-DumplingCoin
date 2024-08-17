@@ -22,8 +22,41 @@ function increaseClickValue() {
 		alert('Недостаточно средств! Продолжай кликать...')
 	}
 }
-// Обработка нескольких касаний
+// Обработка множественных касаний
 document.querySelector('.mainСharacter').addEventListener('touchstart', function(event) {
-    event.preventDefault(); 
-    Array.from(event.touches).forEach(() => Count()); 
-});
+    event.preventDefault();
+    for (let i = 0; i < event.touches.length; i++) {
+        Count();
+    }
+}, { passive: true });
+
+// Анимация при клике
+function pressAndMoveButton(button) {
+	button.classList.add('press-move')
+	setTimeout(function () {
+		button.classList.remove('press-move')
+	}, 300) 
+}
+// + click улетает
+ // Функция для отображения летающих чисел
+  function handleClick(event) {
+    const button = event.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = event.clientX - rect.left; 
+    const y = event.clientY - rect.top;  
+
+    // Создаем элемент для числа
+    const numberElement = document.createElement('div');
+    numberElement.className = 'floating-number';
+    numberElement.innerText = `+${click}`;
+    numberElement.style.left = `${x}px`;
+    numberElement.style.top = `${y}px`;
+
+    // Добавляем элемент в кнопку
+    button.appendChild(numberElement);
+
+    // Удаляем элемент после завершения анимации
+    setTimeout(() => {
+      numberElement.remove();
+    }, 1000);
+  }

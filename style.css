@@ -5,14 +5,15 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: rgb(240, 240, 240); 
+    background-color: #1c1f24; 
 }
 
 .mainСharacter {
+  position: relative;
     width: 200px;
     height: 200px;
     border: none;
-    background-image: url('./rangs/default-pelmen.png');
+    background-image: url('./photo/default-pelmen.png');
     background-size: cover;
     background-position: center; 
     border-radius: 50%; 
@@ -55,23 +56,62 @@ body {
     .press-move {
       animation: pressAndMoveForward 0.3s ease-out; 
     }
-/* Цифры улетают за тап */
-    .floating-number {
-      position: absolute;
-      color: rgb(255, 255, 255);
-      font-size: 25px;
-      font-weight: bold;
-      animation: floatUp 1s ease-out forwards;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      0% {
+/* Анимация для плавного подъема и исчезновения чисел */
+@keyframes floatUp {
+    0% {
         opacity: 1;
         transform: translateY(0);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-50px);
-      }
     }
+    100% {
+        opacity: 0; 
+        transform: translateY(-100px); 
+    }
+}
+
+.floating-number {
+    position: absolute;
+    color: rgb(255, 255, 255);
+    font-size: 25px;
+    font-weight: bold;
+    pointer-events: none;
+    transform: translateY(0);
+    opacity: 1;
+    animation: floatUp 1s ease-out forwards; 
+}
+
+
+
+/*  РАНГИ И УРОВНИ */
+.rank-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  width: 130px;
+  height: 25px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 10px;
+  border:2px solid black;
+}
+
+#progressFill {
+  width: 0;
+  height: 100%;
+  background-color: rgba(255, 0, 0, 0.534);
+  transition: width 0.3s ease;
+}
+
+#rankLabel {
+  background-color: #ff6363;
+  border-radius: 5px;
+  padding:5px ;
+  font-weight: bold;
+  font-size: 18px;
+  
+}
+

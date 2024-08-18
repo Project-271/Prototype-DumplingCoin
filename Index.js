@@ -42,7 +42,7 @@ function increaseClickValue() {
 	if (countMoney >= improvement_1Price) {
 		click += 1
 		countMoney -= improvement_1Price
-		improvement_1Price *= 10
+		improvement_1Price *= 3
 
 		document.getElementById('Count').innerText = countMoney
 		document.getElementById('improvment_1Prise_increaseClickValue').innerText =
@@ -52,6 +52,34 @@ function increaseClickValue() {
 		alert('Недостаточно средств! Продолжай кликать...')
 	}
 }
+// Автокликер +1
+let avtoClick = 0
+let priceAutoClicker = 100
+
+function increaseAvtoClickerPrise() {
+	if (countMoney >= priceAutoClicker) {
+		avtoClick += 1
+		countMoney -= priceAutoClicker
+		priceAutoClicker *= 2
+		document.getElementById('Count').innerText = countMoney
+		document.getElementById('improvment_PriseAvtoCliker').innerText =
+			priceAutoClicker
+	}
+}
+
+function autoClick() {
+	if (avtoClick > 0) {
+		countMoney += avtoClick
+		document.getElementById('Count').innerText = countMoney
+		updateProgressBar()
+
+		if (countMoney >= moneyForNextLevel) {
+			levelUp()
+		}
+	}
+}
+
+setInterval(autoClick, 1000)
 
 // ======= Обработка событий касания =======
 document.querySelector('.mainСharacter').addEventListener(

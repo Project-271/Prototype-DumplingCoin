@@ -43,15 +43,11 @@ function increaseClickValue() {
 		click += 1
 		countMoney -= improvement_1Price
 		improvement_1Price *= 3
-
+		document.getElementById('Count_zaClick').innerText = `Прибыль за клик:${click}`
 		document.getElementById('Count').innerText = countMoney
 		document.getElementById('improvment_1Prise_increaseClickValue').innerText =
 			improvement_1Price
-		alert(`Бустер активирован! Теперь каждый клик добавляет ${click}.`)
-	} else {
-		alert('Недостаточно средств! Продолжай кликать...')
-	}
-}
+}}
 // Автокликер +1
 let avtoClick = 0
 let priceAutoClicker = 100
@@ -77,6 +73,7 @@ function autoClick() {
 			levelUp()
 		}
 	}
+	document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${avtoClick}`
 }
 
 setInterval(autoClick, 1000)

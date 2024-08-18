@@ -10,8 +10,8 @@ body {
 
 .mainСharacter {
   position: relative;
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
     border: none;
     background-image: url('./photo/default-pelmen.png');
     background-size: cover;
@@ -49,13 +49,16 @@ body {
 .Pribil{
   font-size: 20px;
   color: #e0e0e0;
-  border:#000000 solid 1px ;
+  border: #000000 solid 1px;
   text-align: center;
+  height: 30px;
   width: 300px;
   background-color: #0000006d;
   border-radius: 20px;
   margin-bottom: 10px;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* Тряска */
 @keyframes pressAndMoveForward {

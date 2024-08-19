@@ -136,7 +136,15 @@ function handleClick(event) {
 
 // ======= Сохранение данных =======
 function saveProgress() {
-	console.log('Сохранение прогресса...') // Для отладки
+	console.log('Сохранение прогресса...', {
+		countMoney,
+		click,
+		improvement_1Price,
+		currentLevel,
+		moneyForNextLevel,
+		avtoClick,
+		priceAutoClicker,
+	}) // Для отладки
 	localStorage.setItem('countMoney', countMoney)
 	localStorage.setItem('click', click)
 	localStorage.setItem('improvement_1Price', improvement_1Price)
@@ -147,7 +155,6 @@ function saveProgress() {
 	console.log('Прогресс сохранен') // Для отладки
 }
 
-// ======= Загрузка данных =======
 function loadProgress() {
 	if (localStorage.getItem('countMoney') !== null) {
 		console.log('Загрузка прогресса...') // Для отладки
@@ -161,6 +168,16 @@ function loadProgress() {
 		moneyForNextLevel = parseInt(localStorage.getItem('moneyForNextLevel'), 10)
 		avtoClick = parseInt(localStorage.getItem('avtoClick'), 10)
 		priceAutoClicker = parseInt(localStorage.getItem('priceAutoClicker'), 10)
+
+		console.log('Загруженные данные:', {
+			countMoney,
+			click,
+			improvement_1Price,
+			currentLevel,
+			moneyForNextLevel,
+			avtoClick,
+			priceAutoClicker,
+		})
 
 		document.getElementById('Count').innerText = countMoney
 		document.getElementById(
@@ -178,8 +195,6 @@ function loadProgress() {
 		updateProgressBar() // Обновить прогресс-бар
 		console.log('Прогресс загружен') // Для отладки
 	}
+	window.addEventListener('beforeunload', saveProgress)
 }
-
-window.onload = function () {
-	loadProgress()
-}
+window.addEventListener('beforeunload', saveProgress)

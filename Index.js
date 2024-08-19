@@ -138,54 +138,60 @@ function handleClick(event) {
 	}, 1000) 
 }
 // Сохранение прогресса
+// Функция для установки куков с атрибутом SameSite
 function setCookie(name, value, days) {
-	const date = new Date()
-	date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000)
-	const expires = `expires=${date.toUTCString()}`
-	document.cookie = `${name}=${value};${expires};path=/`
+    const date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    const expires = `expires=${date.toUTCString()}`;
+    // Указываем SameSite и при необходимости Secure (если сайт работает через HTTPS)
+    document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
+    // Если ваш сайт использует HTTPS, можно добавить Secure:
+    // document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax;Secure`;
 }
 
+// Функция для получения значения куков
 function getCookie(name) {
-	const nameEQ = `${name}=`
-	const ca = document.cookie.split(';')
-	for (let i = 0; i < ca.length; i++) {
-		let c = ca[i]
-		while (c.charAt(0) == ' ') c = c.substring(1, c.length)
-		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length)
-	}
-	return null
+    const nameEQ = `${name}=`;
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
 }
+
+// Функция для сохранения прогресса в куки
 function saveProgress() {
-	setCookie('countMoney', countMoney, 365)
-	setCookie('click', click, 365)
-	setCookie('currentLevel', currentLevel, 365)
-	setCookie('moneyForNextLevel', moneyForNextLevel, 365)
-	setCookie('avtoClick', avtoClick, 365)
-	setCookie('priceAutoClicker', priceAutoClicker, 365)
-	setCookie('improvement_1Price', improvement_1Price, 365)
+    setCookie('countMoney', countMoney, 365);
+    setCookie('click', click, 365);
+    setCookie('currentLevel', currentLevel, 365);
+    setCookie('moneyForNextLevel', moneyForNextLevel, 365);
+    setCookie('avtoClick', avtoClick, 365);
+    setCookie('priceAutoClicker', priceAutoClicker, 365);
+    setCookie('improvement_1Price', improvement_1Price, 365);
 }
+
+// Функция для загрузки прогресса из куки
 function loadProgress() {
-	countMoney = parseInt(getCookie('countMoney')) || 0
-	click = parseInt(getCookie('click')) || 1
-	currentLevel = parseInt(getCookie('currentLevel')) || 1
-	moneyForNextLevel = parseInt(getCookie('moneyForNextLevel')) || 100
-	avtoClick = parseInt(getCookie('avtoClick')) || 0
-	priceAutoClicker = parseInt(getCookie('priceAutoClicker')) || 100
-	improvement_1Price = parseInt(getCookie('improvement_1Price')) || 100
+    countMoney = parseInt(getCookie('countMoney')) || 0;
+    click = parseInt(getCookie('click')) || 1;
+    currentLevel = parseInt(getCookie('currentLevel')) || 1;
+    moneyForNextLevel = parseInt(getCookie('moneyForNextLevel')) || 100;
+    avtoClick = parseInt(getCookie('avtoClick')) || 0;
+    priceAutoClicker = parseInt(getCookie('priceAutoClicker')) || 100;
+    improvement_1Price = parseInt(getCookie('improvement_1Price')) || 100;
 
-	document.getElementById('Count').innerText = countMoney
-	document.getElementById(
-		'Count_zaClick'
-	).innerText = `Прибыль за клик: ${click}`
-	document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`
-	document.getElementById('improvment_1Prise_increaseClickValue').innerText =
-		improvement_1Price
-	document.getElementById('improvment_PriseAvtoCliker').innerText =
-		priceAutoClicker
+    document.getElementById('Count').innerText = countMoney;
+    document.getElementById('Count_zaClick').innerText = `Прибыль за клик: ${click}`;
+    document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`;
+    document.getElementById('improvment_1Prise_increaseClickValue').innerText = improvement_1Price;
+    document.getElementById('improvment_PriseAvtoCliker').innerText = priceAutoClicker;
 
-	updateProgressBar()
+    updateProgressBar();
 }
 
+// Загрузка прогресса при загрузке страницы
 window.onload = function () {
-	loadProgress()
-}
+    loadProgress();
+};

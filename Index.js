@@ -4,7 +4,7 @@ let click = 1
 let improvement_1Price = 100
 
 let currentLevel = 1
-let moneyForNextLevel = 100 
+let moneyForNextLevel = 100
 let currentTaps = 0
 
 // ======= Функция обновления прогресс-бара =======
@@ -17,24 +17,24 @@ function updateProgressBar() {
 // ======= Функция повышения уровня =======
 function levelUp() {
 	currentLevel++
-	moneyForNextLevel *= 5 
+	moneyForNextLevel *= 5
 
 	document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`
-	updateProgressBar() 
+	updateProgressBar()
+	saveProgress() // Сохранение прогресса при повышении уровня
 }
 
 // ======= Функция обработки кликов и подсчета =======
 function Count() {
-	countMoney += click 
+	countMoney += click
 
 	document.getElementById('Count').innerText = countMoney
-	updateProgressBar() 
+	updateProgressBar()
 
 	if (countMoney >= moneyForNextLevel) {
-		levelUp() 
+		levelUp()
 	}
-	 saveProgress()
-
+	saveProgress() // Сохранение прогресса при клике
 	return countMoney
 }
 
@@ -44,11 +44,16 @@ function increaseClickValue() {
 		click += 1
 		countMoney -= improvement_1Price
 		improvement_1Price *= 3
-		document.getElementById('Count_zaClick').innerText = `Прибыль за клик:${click}`
+		document.getElementById(
+			'Count_zaClick'
+		).innerText = `Прибыль за клик:${click}`
 		document.getElementById('Count').innerText = countMoney
-		document.getElementById('improvment_1Prise_increaseClickValue').innerText = improvement_1Price
-		saveProgress()
-}}
+		document.getElementById('improvment_1Prise_increaseClickValue').innerText =
+			improvement_1Price
+		saveProgress() // Сохранение прогресса после улучшения
+	}
+}
+
 // Автокликер +1
 let avtoClick = 0
 let priceAutoClicker = 100
@@ -61,6 +66,7 @@ function increaseAvtoClickerPrise() {
 		document.getElementById('Count').innerText = countMoney
 		document.getElementById('improvment_PriseAvtoCliker').innerText =
 			priceAutoClicker
+		saveProgress() // Сохранение прогресса после покупки автокликера
 	}
 }
 
@@ -73,8 +79,11 @@ function autoClick() {
 		if (countMoney >= moneyForNextLevel) {
 			levelUp()
 		}
+		saveProgress() // Сохранение прогресса при автоклике
 	}
-	document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${avtoClick}`
+	document.getElementById(
+		'Count_vSecond'
+	).innerText = `Прибыль в секунду: ${avtoClick}`
 }
 
 setInterval(autoClick, 1000)
@@ -90,14 +99,6 @@ document.querySelector('.mainСharacter').addEventListener(
 	},
 	{ passive: true }
 )
-
-// ======= Анимация кнопки при нажатии и перемещении =======
-function pressAndMoveButton(button) {
-	button.classList.add('press-move')
-	setTimeout(function () {
-		button.classList.remove('press-move')
-	}, 300)
-}
 
 // ======= Анимация кнопки при нажатии и перемещении =======
 function pressAndMoveButton(button) {
@@ -130,41 +131,55 @@ function handleClick(event) {
 
 	setTimeout(() => {
 		numberElement.remove()
-	}, 1000) 
+	}, 1000)
 }
-// сохранение прогресса
+
 // ======= Сохранение данных =======
 function saveProgress() {
-    localStorage.setItem('countMoney', countMoney);
-    localStorage.setItem('click', click);
-    localStorage.setItem('improvement_1Price', improvement_1Price);
-    localStorage.setItem('currentLevel', currentLevel);
-    localStorage.setItem('moneyForNextLevel', moneyForNextLevel);
-    localStorage.setItem('avtoClick', avtoClick);
-    localStorage.setItem('priceAutoClicker', priceAutoClicker);
+	console.log('Сохранение прогресса...') // Для отладки
+	localStorage.setItem('countMoney', countMoney)
+	localStorage.setItem('click', click)
+	localStorage.setItem('improvement_1Price', improvement_1Price)
+	localStorage.setItem('currentLevel', currentLevel)
+	localStorage.setItem('moneyForNextLevel', moneyForNextLevel)
+	localStorage.setItem('avtoClick', avtoClick)
+	localStorage.setItem('priceAutoClicker', priceAutoClicker)
+	console.log('Прогресс сохранен') // Для отладки
 }
 
 // ======= Загрузка данных =======
 function loadProgress() {
-    if (localStorage.getItem('countMoney') !== null) {
-        countMoney = parseInt(localStorage.getItem('countMoney'), 10);
-        click = parseInt(localStorage.getItem('click'), 10);
-        improvement_1Price = parseInt(localStorage.getItem('improvement_1Price'), 10);
-        currentLevel = parseInt(localStorage.getItem('currentLevel'), 10);
-        moneyForNextLevel = parseInt(localStorage.getItem('moneyForNextLevel'), 10);
-        avtoClick = parseInt(localStorage.getItem('avtoClick'), 10);
-        priceAutoClicker = parseInt(localStorage.getItem('priceAutoClicker'), 10);
+	if (localStorage.getItem('countMoney') !== null) {
+		console.log('Загрузка прогресса...') // Для отладки
+		countMoney = parseInt(localStorage.getItem('countMoney'), 10)
+		click = parseInt(localStorage.getItem('click'), 10)
+		improvement_1Price = parseInt(
+			localStorage.getItem('improvement_1Price'),
+			10
+		)
+		currentLevel = parseInt(localStorage.getItem('currentLevel'), 10)
+		moneyForNextLevel = parseInt(localStorage.getItem('moneyForNextLevel'), 10)
+		avtoClick = parseInt(localStorage.getItem('avtoClick'), 10)
+		priceAutoClicker = parseInt(localStorage.getItem('priceAutoClicker'), 10)
 
-        document.getElementById('Count').innerText = countMoney;
-        document.getElementById('Count_zaClick').innerText = `Прибыль за клик: ${click}`;
-        document.getElementById('improvment_1Prise_increaseClickValue').innerText = improvement_1Price;
-        document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`;
-        document.getElementById('improvment_PriseAvtoCliker').innerText = priceAutoClicker;
-        document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${avtoClick}`;
-        
-        updateProgressBar(); // Обновить прогресс-бар
-    }
+		document.getElementById('Count').innerText = countMoney
+		document.getElementById(
+			'Count_zaClick'
+		).innerText = `Прибыль за клик: ${click}`
+		document.getElementById('improvment_1Prise_increaseClickValue').innerText =
+			improvement_1Price
+		document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`
+		document.getElementById('improvment_PriseAvtoCliker').innerText =
+			priceAutoClicker
+		document.getElementById(
+			'Count_vSecond'
+		).innerText = `Прибыль в секунду: ${avtoClick}`
+
+		updateProgressBar() // Обновить прогресс-бар
+		console.log('Прогресс загружен') // Для отладки
+	}
 }
+
 window.onload = function () {
 	loadProgress()
 }

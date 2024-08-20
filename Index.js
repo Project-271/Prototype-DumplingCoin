@@ -143,3 +143,12 @@ function handleClick(event) {
 		numberElement.remove()
 	}, 1000)
 }
+// Вкладка улучшений
+function toggleImprovements() {
+	const list = document.getElementById('improvementsList')
+	if (list.style.display === 'none' || list.style.display === '') {
+		list.style.display = 'block' 
+	} else {
+		list.style.display = 'none' 
+	}
+}

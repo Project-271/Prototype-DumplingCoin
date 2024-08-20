@@ -1,14 +1,14 @@
-  <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <link rel="stylesheet" href='style.css'>
-    <script src="Index.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dumplingcoin</title>
-  </head>
-  <body>
-    <!-- УРОВНИ РАНГОВ ТУДА СЮДА -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href='style.css'>
+  <script src="index.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dumplingcoin</title>
+</head>
+<body>
+
 <div class="rank-container">
   <span id="rankLabel">Уровень 1</span>
   <div class="progress-bar">
@@ -16,14 +16,20 @@
   </div>
 </div>
 
+<button onclick="increaseClickValue()" class="improvments">Курсор<br>
+  <div class="improve_discriptions">+1 за клик</div>
+  <div class="priceColor">Цена:<span id="improvment_1Prise_increaseClickValue">100</span></div>
+</button>
 
-  <button  onclick="increaseClickValue()" class="improvments" >Курсор<br><div class="improve_discriptions">+1 за клик</div><div class="priceColor">Цена:<span id="improvment_1Prise_increaseClickValue">100</span></div></button>
+<button onclick="increaseAvtoClickerPrise()" class="improvments">Автокликер<br>
+  <div class="improve_discriptions">+1 в секунду</div>
+  <div class="priceColor">Цена:<span id="improvment_PriseAvtoCliker">100</span></div>
+</button>
 
-  <button  onclick="increaseAvtoClickerPrise(); autoClick()" class="improvments" >Автокликер<br><div class="improve_discriptions">+1 в секунду</div><div class="priceColor">Цена:<span id="improvment_PriseAvtoCliker">100</span></div></button>
-
-<button onclick="handleClick(event); pressAndMoveButton(this); Count()" class="mainСharacter" ></button>
+<button onclick="handleClick(event); pressAndMoveButton(this); Count()" class="mainСharacter"></button>
 <p id="Count">0</p>
 <div class="Pribil"><p id="Count_vSecond">Прибыль в секунду: 0</p></div>
 <div class="Pribil"><p id="Count_zaClick">Прибыль за клик: 1</p></div>
-  </body>
-  </html>
+
+</body>
+</html>

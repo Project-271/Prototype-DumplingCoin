@@ -4,8 +4,11 @@ let click = 1
 let improvement_1Price = 100
 
 let currentLevel = 1
-let moneyForNextLevel = 100 
+let moneyForNextLevel = 100
 let currentTaps = 0
+
+let avtoClick = 0
+let priceAutoClicker = 100
 
 // ======= Функция обновления прогресс-бара =======
 function updateProgressBar() {
@@ -17,10 +20,10 @@ function updateProgressBar() {
 // ======= Функция повышения уровня =======
 function levelUp() {
 	currentLevel++
-	moneyForNextLevel *= 5 
+	moneyForNextLevel *= 5
 
 	document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`
-	updateProgressBar() 
+	updateProgressBar()
 }
 
 // ======= Функция обработки кликов и подсчета =======
@@ -34,9 +37,6 @@ function Count() {
 		levelUp()
 	}
 
-	// Сохранение данных в куки
-	saveProgress()
-
 	return countMoney
 }
 
@@ -46,29 +46,31 @@ function increaseClickValue() {
 		click += 1
 		countMoney -= improvement_1Price
 		improvement_1Price *= 3
-		document.getElementById('Count_zaClick').innerText = `Прибыль за клик:${click}`
+		document.getElementById(
+			'Count_zaClick'
+		).innerText = `Прибыль за клик: ${click}`
 		document.getElementById('Count').innerText = countMoney
 		document.getElementById('improvment_1Prise_increaseClickValue').innerText =
 			improvement_1Price
-			// Сохранение данных в куки
-        saveProgress();
-}}
-// Автокликер +1
-let avtoClick = 0
-let priceAutoClicker = 100
+	}
+}
 
+// ======= Функция увеличения значения автокликера =======
 function increaseAvtoClickerPrise() {
 	if (countMoney >= priceAutoClicker) {
 		avtoClick += 1
 		countMoney -= priceAutoClicker
 		priceAutoClicker *= 2
 		document.getElementById('Count').innerText = countMoney
-		document.getElementById('improvment_PriseAvtoCliker').innerText = priceAutoClicker
-		// Сохранение данных в куки
-		saveProgress()
+		document.getElementById('improvment_PriseAvtoCliker').innerText =
+			priceAutoClicker
+		document.getElementById(
+			'Count_vSecond'
+		).innerText = `Прибыль в секунду: ${avtoClick}`
 	}
 }
 
+// ======= Функция автоклика =======
 function autoClick() {
 	if (avtoClick > 0) {
 		countMoney += avtoClick
@@ -79,9 +81,9 @@ function autoClick() {
 			levelUp()
 		}
 	}
-	document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${avtoClick}`
 }
 
+// Запуск автокликера каждую секунду
 setInterval(autoClick, 1000)
 
 // ======= Обработка событий касания =======
@@ -104,14 +106,18 @@ function pressAndMoveButton(button) {
 	}, 300)
 }
 
-// ======= Анимация кнопки при нажатии и перемещении =======
-function pressAndMoveButton(button) {
-	button.classList.add('press-move')
-	setTimeout(function () {
-		button.classList.remove('press-move')
-	}, 300)
+// ======= Обработчик для кнопки автокликера (исключает добавление очков при нажатии) =======
+function handleAutoClickerClick(event) {
+	event.stopPropagation() // Предотвращает дальнейшую обработку события
+	increaseAvtoClickerPrise()
 }
 
+// Назначение обработчика кнопке автокликера
+document
+	.querySelector('.improvments:nth-child(2)')
+	.addEventListener('click', handleAutoClickerClick)
+
+// ======= Анимация при клике по основной кнопке =======
 function handleClick(event) {
 	const button = event.currentTarget
 	const rect = button.getBoundingClientRect()
@@ -135,63 +141,5 @@ function handleClick(event) {
 
 	setTimeout(() => {
 		numberElement.remove()
-	}, 1000) 
+	}, 1000)
 }
-// Сохранение прогресса
-// Функция для установки куков с атрибутом SameSite
-function setCookie(name, value, days) {
-    const date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    const expires = `expires=${date.toUTCString()}`;
-    // Указываем SameSite и при необходимости Secure (если сайт работает через HTTPS)
-    document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax`;
-    // Если ваш сайт использует HTTPS, можно добавить Secure:
-    // document.cookie = `${name}=${value};${expires};path=/;SameSite=Lax;Secure`;
-}
-
-// Функция для получения значения куков
-function getCookie(name) {
-    const nameEQ = `${name}=`;
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-}
-
-// Функция для сохранения прогресса в куки
-function saveProgress() {
-    setCookie('countMoney', countMoney, 365);
-    setCookie('click', click, 365);
-    setCookie('currentLevel', currentLevel, 365);
-    setCookie('moneyForNextLevel', moneyForNextLevel, 365);
-    setCookie('avtoClick', avtoClick, 365);
-    setCookie('priceAutoClicker', priceAutoClicker, 365);
-    setCookie('improvement_1Price', improvement_1Price, 365);
-}
-
-// Функция для загрузки прогресса из куки
-function loadProgress() {
-    countMoney = parseInt(getCookie('countMoney')) || 0;
-    click = parseInt(getCookie('click')) || 1;
-    currentLevel = parseInt(getCookie('currentLevel')) || 1;
-    moneyForNextLevel = parseInt(getCookie('moneyForNextLevel')) || 100;
-    avtoClick = parseInt(getCookie('avtoClick')) || 0;
-    priceAutoClicker = parseInt(getCookie('priceAutoClicker')) || 100;
-    improvement_1Price = parseInt(getCookie('improvement_1Price')) || 100;
-
-    document.getElementById('Count').innerText = countMoney;
-    document.getElementById('Count_zaClick').innerText = `Прибыль за клик: ${click}`;
-    document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`;
-    document.getElementById('improvment_1Prise_increaseClickValue').innerText = improvement_1Price;
-    document.getElementById('improvment_PriseAvtoCliker').innerText = priceAutoClicker;
-
-    updateProgressBar();
-}
-
-// Загрузка прогресса при загрузке страницы
-window.onload = function () {
-    loadProgress();
-};

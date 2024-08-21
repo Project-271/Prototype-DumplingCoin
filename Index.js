@@ -10,6 +10,9 @@ let currentTaps = 0
 let avtoClick = 0
 let priceAutoClicker = 100
 
+ let lavkaClick = 0
+ let priceLavkaClicker = 300
+
 // ======= Функция обновления прогресс-бара =======
 function updateProgressBar() {
 	const progressFill = document.getElementById('progressFill')
@@ -64,16 +67,16 @@ function increaseAvtoClickerPrise() {
 		document.getElementById('Count').innerText = countMoney
 		document.getElementById('improvment_PriseAvtoCliker').innerText =
 			priceAutoClicker
-		document.getElementById(
-			'Count_vSecond'
-		).innerText = `Прибыль в секунду: ${avtoClick}`
+		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
+			avtoClick + lavkaClick
+		}`
 	}
 }
 
 // ======= Функция автоклика =======
 function autoClick() {
-	if (avtoClick > 0) {
-		countMoney += avtoClick
+	if (avtoClick > 0 || lavkaClick > 0) {
+		countMoney += avtoClick + lavkaClick
 		document.getElementById('Count').innerText = countMoney
 		updateProgressBar()
 
@@ -152,3 +155,17 @@ function toggleImprovements() {
 		list.style.display = 'none' 
 	}
 }
+// Улучшение пельменная лавка
+function increaseLavkaPrise() {
+	if (countMoney >= priceLavkaClicker) {
+		lavkaClick += 3
+		countMoney -= priceLavkaClicker
+		priceLavkaClicker *= 2.5
+		document.getElementById('Count').innerText = countMoney
+		document.getElementById('priceLavkaClicker').innerText = priceLavkaClicker
+		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
+			lavkaClick + avtoClick
+		}`
+	}
+}
+

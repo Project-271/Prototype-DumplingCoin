@@ -138,6 +138,7 @@ body {
 }
 /* Улучшения */
 .improvements-list {
+    text-align: center;
       display: none; 
       border-radius: 8px;
       margin-top: 5px;

@@ -1,5 +1,5 @@
 // ======= Инициализация переменных =======
-let countMoney = 0
+let countMoney = 10000
 let click = 1
 let improvement_1Price = 100
 
@@ -12,6 +12,15 @@ let priceAutoClicker = 100
 
  let lavkaClick = 0
  let priceLavkaClicker = 300
+
+  let fermaClick = 0
+	let priceFermaClicker = 800
+
+	let factoryClick = 0
+	let priceFactoryClicker = 1500
+
+	let restaurantClick = 0
+	let priceRestaurantClicker = 3000
 
 // ======= Функция обновления прогресс-бара =======
 function updateProgressBar() {
@@ -42,6 +51,15 @@ function Count() {
 
 	return countMoney
 }
+// Вкладка улучшений
+function toggleImprovements() {
+	const list = document.getElementById('improvementsList')
+	if (list.style.display === 'none' || list.style.display === '') {
+		list.style.display = 'block' 
+	} else {
+		list.style.display = 'none' 
+	}
+}
 
 // ======= Функция увеличения значения клика =======
 function increaseClickValue() {
@@ -57,7 +75,6 @@ function increaseClickValue() {
 			improvement_1Price
 	}
 }
-
 // ======= Функция увеличения значения автокликера =======
 function increaseAvtoClickerPrise() {
 	if (countMoney >= priceAutoClicker) {
@@ -68,15 +85,64 @@ function increaseAvtoClickerPrise() {
 		document.getElementById('improvment_PriseAvtoCliker').innerText =
 			priceAutoClicker
 		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
-			avtoClick + lavkaClick
+			avtoClick + lavkaClick + fermaClick + factoryClick + restaurantClick
 		}`
 	}
 }
-
+// Улучшение пельменная лавка
+function increaseLavkaPrise() {
+	if (countMoney >= priceLavkaClicker) {
+		lavkaClick += 5
+		countMoney -= priceLavkaClicker
+		priceLavkaClicker *= 2.5
+		document.getElementById('Count').innerText = countMoney
+		document.getElementById('priceLavkaClicker').innerText = priceLavkaClicker
+		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
+			lavkaClick + avtoClick + fermaClick + factoryClick + restaurantClick
+		}`
+	}
+}
+// Улучшение ферма пельменей
+function increaseFermaPrise(){
+		if (countMoney >= priceFermaClicker) {
+			fermaClick += 10
+			countMoney -= priceFermaClicker
+			priceFermaClicker *= 3
+			document.getElementById('Count').innerText = countMoney
+			document.getElementById('priceFermaClicker').innerText = priceFermaClicker
+			document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${lavkaClick + avtoClick + fermaClick + factoryClick + restaurantClick}`
+		}
+}
+// Улучшение завода пельменей
+function increaseFactoryPrise(){
+	if (countMoney >= priceFactoryClicker) {
+		factoryClick += 20
+		countMoney -= priceFactoryClicker
+		priceFactoryClicker *= 2.5
+		document.getElementById('Count').innerText = countMoney
+		document.getElementById('priceFactoryClicker').innerText = priceFactoryClicker
+		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
+			lavkaClick + avtoClick + fermaClick + factoryClick + restaurantClick
+		}`
+	}
+}
+// Улучшение Ресторана пельменей
+function increaseRestaurauntPrise(){
+	if (countMoney >= priceRestaurantClicker) {
+		restaurantClick += 50
+		countMoney -= priceRestaurantClicker
+		priceRestaurantClicker *= 2
+		document.getElementById('Count').innerText = countMoney
+		document.getElementById('priceRestaurauntClicker').innerText = priceRestaurantClicker
+		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
+			lavkaClick + avtoClick + fermaClick + factoryClick + restaurantClick
+		}`
+	}
+}
 // ======= Функция автоклика =======
 function autoClick() {
-	if (avtoClick > 0 || lavkaClick > 0) {
-		countMoney += avtoClick + lavkaClick
+	if (avtoClick > 0 || lavkaClick > 0 || fermaClick > 0 || factoryClick > 0 || restaurantClick > 0) {
+		countMoney += avtoClick + lavkaClick + fermaClick + factoryClick + restaurantClick
 		document.getElementById('Count').innerText = countMoney
 		updateProgressBar()
 
@@ -146,26 +212,3 @@ function handleClick(event) {
 		numberElement.remove()
 	}, 1000)
 }
-// Вкладка улучшений
-function toggleImprovements() {
-	const list = document.getElementById('improvementsList')
-	if (list.style.display === 'none' || list.style.display === '') {
-		list.style.display = 'block' 
-	} else {
-		list.style.display = 'none' 
-	}
-}
-// Улучшение пельменная лавка
-function increaseLavkaPrise() {
-	if (countMoney >= priceLavkaClicker) {
-		lavkaClick += 3
-		countMoney -= priceLavkaClicker
-		priceLavkaClicker *= 2.5
-		document.getElementById('Count').innerText = countMoney
-		document.getElementById('priceLavkaClicker').innerText = priceLavkaClicker
-		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
-			lavkaClick + avtoClick
-		}`
-	}
-}
-

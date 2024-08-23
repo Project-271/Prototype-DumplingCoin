@@ -1,5 +1,5 @@
 // ======= Инициализация переменных =======
-let countMoney = 10000
+let countMoney = 0
 let click = 1
 let improvement_1Price = 100
 
@@ -51,16 +51,6 @@ function Count() {
 
 	return countMoney
 }
-// Вкладка улучшений
-function toggleImprovements() {
-	const list = document.getElementById('improvementsList')
-	if (list.style.display === 'none' || list.style.display === '') {
-		list.style.display = 'block' 
-	} else {
-		list.style.display = 'none' 
-	}
-}
-
 // ======= Функция увеличения значения клика =======
 function increaseClickValue() {
 	if (countMoney >= improvement_1Price) {
@@ -212,3 +202,18 @@ function handleClick(event) {
 		numberElement.remove()
 	}, 1000)
 }
+// Навигация
+function showSection(sectionId) {
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(section => {
+    section.classList.remove('active');
+  });
+  document.getElementById(sectionId).classList.add('active');
+}
+
+function selectSkin(skinName) {
+  const mainCharacter = document.querySelector('.mainСharacter');
+  mainCharacter.style.backgroundImage = `url('./photo/${skinName}')`;
+}
+
+// Other functions remain unchanged

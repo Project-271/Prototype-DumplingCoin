@@ -9,40 +9,63 @@
 </head>
 <body>
 
-<div class="rank-container">
-  <span id="rankLabel">Уровень 1</span>
-  <div class="progress-bar">
-    <div id="progressFill"></div>
+  <!-- Main Clicker Section -->
+  <section id="mainSection" class="section active">
+    <!-- Level -->
+    <div class="rank-container">
+      <span id="rankLabel">Уровень 1</span>
+      <div class="progress-bar">
+        <div id="progressFill"></div>
+      </div>
+    </div>
+
+    <button onclick="handleClick(event); pressAndMoveButton(this); Count()" class="mainСharacter"></button>
+
+    <div class="counter-container">
+      <img src="./photo/dumplingcoin.jpeg" alt="Dumplingcoin">
+      <p id="Count">0</p>
+    </div>
+
+    <div class="Pribil"><p id="Count_vSecond">Прибыль в секунду: 0</p></div>
+    <div class="Pribil"><p id="Count_zaClick">Прибыль за клик: 1</p></div>
+  </section>
+
+  <!-- Improvements Section -->
+  <section id="improvementsSection" class="section">
+    <button class="improvments_btn">Улучшения</button>
+    <!-- Hidden Improvement List -->
+    <div id="improvementsList" class="improvements-list">
+      <div class="improvments"><button onclick="increaseClickValue()">Курсор<div class='improve_discriptions'>(+1 за клик)</div><div class="priceColor">Цена:<span id="improvment_1Prise_increaseClickValue">100</span></div></button></div>
+
+      <div class="improvments"><button onclick="increaseAvtoClickerPrise()">Автокликер<div class='improve_discriptions'>(+1 в секунду)</div><div class="priceColor">Цена: <span id="improvment_PriseAvtoCliker">100</span></div></button></div>
+
+      <div class="improvments"><button onclick="increaseLavkaPrise()">Пельменная лавка<div class='improve_discriptions'>(+5 в секунду)</div><div class="priceColor">Цена: <span id="priceLavkaClicker">300</span></div></button></div>
+
+      <div class="improvments"><button onclick="increaseFermaPrise()">Ферма для ингредиентов<div class='improve_discriptions'>(+10 в секунду)</div><div class="priceColor">Цена: <span id="priceFermaClicker">800</span></div></button></div>
+
+      <div class="improvments"><button onclick="increaseFactoryPrise()">Пельменный завод<div class='improve_discriptions'>(+20 в секунду)</div><div class="priceColor">Цена: <span id="priceFactoryClicker">1500</span></div></button></div>
+
+      <div class="improvments"><button onclick="increaseRestaurauntPrise()">Сетевой ресторан<br>"Пельмени по всему миру"<div class='improve_discriptions'>(+50 в секунду)</div><div class="priceColor">Цена: <span id="priceRestaurauntClicker">3000</span></div></button></div>
+    </div>
+  </section>
+
+  <!-- Skins Section -->
+  <section id="skinsSection" class="section">
+    <h2 class="select_skin_h2">Выберите скин</h2>
+    <!-- Add skin selection options here -->
+    <div class="skins-container">
+      <button class="skin-option" onclick="selectSkin('default-pelmen.png')">Дефолтный крендель</button>
+      <button class="skin-option" onclick="selectSkin('diamond-dumpling.png')">Алмазный</button>
+      <!-- Add more skins as needed -->
+    </div>
+  </section>
+
+  <!-- Navigation Buttons -->
+  <div class="nav-buttons">
+    <button onclick="showSection('mainSection')" class="nav_btn">Кликер</button>
+    <button onclick="showSection('improvementsSection')" class="nav_btn">Улучшения</button>
+    <button onclick="showSection('skinsSection')" class="nav_btn">Скины</button>
   </div>
-</div>
-
-<!-- Improvement Button -->
-<button onclick="toggleImprovements()" class="improvments">Улучшения</button>
-
-<!-- Hidden Improvement List -->
-<div id="improvementsList" class="improvements-list">
-  <div class="improvments"><button onclick="increaseClickValue()">Курсор<div class='improve_discriptions'>(+1 за клик)</div><div class="priceColor">Цена:<span id="improvment_1Prise_increaseClickValue">100</div></span></button></div>
-
-  <div class="improvments"><button onclick="increaseAvtoClickerPrise()">Автокликер<div class='improve_discriptions'>(+1 в секунду)</div><div class="priceColor">Цена: <span id="improvment_PriseAvtoCliker">100</div></span></button></div>
-
-  <div class="improvments"><button onclick="increaseLavkaPrise()">Пельменная лавка<div class='improve_discriptions'>(+5 в секунду)</div><div class="priceColor">Цена: <span id="priceLavkaClicker">300</div></span></button></div>
-
-  <div class="improvments"><button onclick="increaseFermaPrise()">Ферма для ингредиентов<div class='improve_discriptions'>(+10 в секунду)</div><div class="priceColor">Цена: <span id="priceFermaClicker">800</div></span></button></div>
-
-  <div class="improvments"><button onclick="increaseFactoryPrise()">Пельменный завод<div class='improve_discriptions'>(+20 в секунду)</div><div class="priceColor">Цена: <span id="priceFactoryClicker">1500</div></span></button></div>
-
-  <div class="improvments"><button onclick="increaseRestaurauntPrise()">Сетевой ресторан<br>"Пельмени по всему миру"<div class='improve_discriptions'>(+50 в секунду)</div><div class="priceColor">Цена: <span id="priceRestaurauntClicker">3000</div></span></button></div>
-  
-  <!-- Add more improvements here -->
-</div>
-
-<button onclick="handleClick(event); pressAndMoveButton(this); Count()" class="mainСharacter"></button>
-<div class="counter-container">
-  <img src="./photo/dumplingcoin.jpeg" alt="Dumplingcoin">
-  <p id="Count">0</p>
-</div>
-<div class="Pribil"><p id="Count_vSecond">Прибыль в секунду: 0</p></div>
-<div class="Pribil"><p id="Count_zaClick">Прибыль за клик: 1</p></div>
 
 </body>
 </html>

@@ -217,3 +217,122 @@ function selectSkin(skinName) {
 }
 
 // Other functions remain unchanged
+// ======= Функция сохранения данных в localStorage =======
+function saveGameData() {
+	const gameData = {
+		countMoney,
+		click,
+		improvement_1Price,
+		currentLevel,
+		moneyForNextLevel,
+		avtoClick,
+		priceAutoClicker,
+		lavkaClick,
+		priceLavkaClicker,
+		fermaClick,
+		priceFermaClicker,
+		factoryClick,
+		priceFactoryClicker,
+		restaurantClick,
+		priceRestaurantClicker,
+	};
+	localStorage.setItem('dumplingcoinSave', JSON.stringify(gameData));
+}
+
+// ======= Функция загрузки данных из localStorage =======
+function loadGameData() {
+	const savedData = localStorage.getItem('dumplingcoinSave');
+	if (savedData) {
+		const gameData = JSON.parse(savedData);
+		countMoney = gameData.countMoney;
+		click = gameData.click;
+		improvement_1Price = gameData.improvement_1Price;
+		currentLevel = gameData.currentLevel;
+		moneyForNextLevel = gameData.moneyForNextLevel;
+		avtoClick = gameData.avtoClick;
+		priceAutoClicker = gameData.priceAutoClicker;
+		lavkaClick = gameData.lavkaClick;
+		priceLavkaClicker = gameData.priceLavkaClicker;
+		fermaClick = gameData.fermaClick;
+		priceFermaClicker = gameData.priceFermaClicker;
+		factoryClick = gameData.factoryClick;
+		priceFactoryClicker = gameData.priceFactoryClicker;
+		restaurantClick = gameData.restaurantClick;
+		priceRestaurantClicker = gameData.priceRestaurantClicker;
+
+		// Обновляем отображение на экране
+		document.getElementById('Count').innerText = countMoney;
+		document.getElementById('Count_zaClick').innerText = `Прибыль за клик: ${click}`;
+		document.getElementById('Count_vSecond').innerText = `Прибыль в секунду: ${
+			lavkaClick + avtoClick + fermaClick + factoryClick + restaurantClick
+		}`;
+		document.getElementById('rankLabel').innerText = `Уровень ${currentLevel}`;
+		document.getElementById('improvment_1Prise_increaseClickValue').innerText = improvement_1Price;
+		document.getElementById('improvment_PriseAvtoCliker').innerText = priceAutoClicker;
+		document.getElementById('priceLavkaClicker').innerText = priceLavkaClicker;
+		document.getElementById('priceFermaClicker').innerText = priceFermaClicker;
+		document.getElementById('priceFactoryClicker').innerText = priceFactoryClicker;
+		document.getElementById('priceRestaurauntClicker').innerText = priceRestaurantClicker;
+
+		updateProgressBar();
+	}
+}
+
+// ======= Автосохранение игры каждые 10 секунд =======
+setInterval(saveGameData, 10000);
+
+// Загрузка данных при старте игры
+window.onload = loadGameData;
+// скинс
+// ======= Функция выбора скина с галочкой =======
+function selectSkin(skinName, buttonElement) {
+  const mainCharacter = document.querySelector('.mainСharacter');
+  mainCharacter.style.backgroundImage = `url('./photo/${skinName}')`;
+
+  // Сохраняем выбранный скин в localStorage
+  localStorage.setItem('selectedSkin', skinName);
+
+  // Удаляем галочку со всех кнопок скинов
+  const allSkinButtons = document.querySelectorAll('.skin-option');
+  allSkinButtons.forEach(button => {
+    button.classList.remove('selected-skin');
+    const checkmark = button.querySelector('.checkmark');
+    if (checkmark) {
+      checkmark.remove();
+    }
+  });
+
+  // Добавляем галочку на выбранную кнопку
+  buttonElement.classList.add('selected-skin');
+  const checkmark = document.createElement('span');
+  checkmark.className = 'checkmark';
+  checkmark.innerText = '✔';
+  buttonElement.appendChild(checkmark);
+}
+
+// ======= Функция загрузки выбранного скина =======
+function loadSelectedSkin() {
+  const savedSkin = localStorage.getItem('selectedSkin');
+  if (savedSkin) {
+    const mainCharacter = document.querySelector('.mainСharacter');
+    mainCharacter.style.backgroundImage = `url('./photo/${savedSkin}')`;
+
+    // Устанавливаем галочку на соответствующую кнопку
+    const allSkinButtons = document.querySelectorAll('.skin-option');
+    allSkinButtons.forEach(button => {
+      if (button.innerText.includes(savedSkin.split('.')[0])) {
+        button.classList.add('selected-skin');
+        const checkmark = document.createElement('span');
+        checkmark.className = 'checkmark';
+        checkmark.innerText = '✔';
+        button.appendChild(checkmark);
+      }
+    });
+  }
+}
+
+// Загрузка скина при старте игры
+window.onload = function () {
+  loadGameData(); // Загрузка данных игры
+  loadSelectedSkin(); // Загрузка выбранного скина
+};
